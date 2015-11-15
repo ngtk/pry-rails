@@ -24,7 +24,7 @@ class PryRails::ShowRoutes < Pry::ClassCommand
         process_rails_3_0_and_3_1(all_routes)
       end
 
-    output.puts formatted.grep(Regexp.new(opts[:G] || ".")).join("\n")
+    stagger_output formatted.grep(Regexp.new(opts[:G] || ".")).join("\n")
   end
 
   # Cribbed from https://github.com/rails/rails/blob/3-1-stable/railties/lib/rails/tasks/routes.rake

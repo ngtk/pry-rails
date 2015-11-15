@@ -59,7 +59,7 @@ class PryRails::ShowMiddleware < Pry::ClassCommand
       else
         "use #{middleware}"
       end
-      output.puts string
+      stagger_output string
     end
   end
 
