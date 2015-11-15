@@ -61,7 +61,7 @@ class PryRails::ShowModels < Pry::ClassCommand
       return unless str =~ grep_regex
       str = colorize_matches(str) # :(
     end
-    output.puts str
+    _pry_.pager.page str
   end
 
   def colorize_matches(string)

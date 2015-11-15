@@ -32,9 +32,9 @@ class PryRails::ShowModel < Pry::ClassCommand
 
     case
     when defined?(ActiveRecord::Base) && model < ActiveRecord::Base
-      output.puts formatter.format_active_record(model)
+      _pry_.pager.page formatter.format_active_record(model)
     when defined?(Mongoid::Document) && model < Mongoid::Document
-      output.puts formatter.format_mongoid(model)
+      _pry_.page formatter.format_mongoid(model)
     else
       output.puts "Don't know how to show #{model}!"
     end

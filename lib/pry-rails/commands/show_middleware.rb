@@ -59,7 +59,7 @@ class PryRails::ShowMiddleware < Pry::ClassCommand
       else
         "use #{middleware}"
       end
-      output.puts string
+      _pry_.pager.page string
     end
   end
 

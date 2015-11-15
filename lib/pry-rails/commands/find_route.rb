@@ -60,7 +60,7 @@ class PryRails::FindRoute < Pry::ClassCommand
         end
         result << "\n"
       end
-      stagger_output result
+      _pry_.pager.page result
     else
       output.puts "No routes found."
     end
