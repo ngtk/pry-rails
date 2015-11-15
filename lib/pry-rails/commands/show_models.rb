@@ -29,9 +29,10 @@ class PryRails::ShowModels < Pry::ClassCommand
 
     models = ActiveRecord::Base.descendants
 
-    models.sort_by(&:to_s).each do |model|
-      print_unless_filtered @formatter.format_active_record(model)
+    str = models.sort_by(&:to_s).map do |model|
+      filter @formatter.format_active_record(model)
     end
+    stagger_output str.join("\n")
   end
 
   def display_mongoid_models
@@ -51,17 +52,19 @@ class PryRails::ShowModels < Pry::ClassCommand
       models << o if is_model
     end
 
-    models.sort_by(&:to_s).each do |model|
-      print_unless_filtered @formatter.format_mongoid(model)
+    str = models.sort_by(&:to_s).map do |model|
+      filter @formatter.format_mongoid(model)
     end
+    stagger_output str.join("\n")
   end
 
-  def print_unless_filtered(str)
+  def filter(str)
     if opts.present?(:G)
       return unless str =~ grep_regex
-      str = colorize_matches(str) # :(
+      colorize_matches(str) # :(
+    else
+      str
     end
-    stagger_output str
   end
 
   def colorize_matches(string)
